@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "LLMs Tab Caster",
+  "version": "1.0",
+  "description": "Send the same message to multiple AI chat services simultaneously, including ChatGPT, Claude, Gemini, Mistral, and more.",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chat.mistral.ai/*",
+    "https://claude.ai/*",
+    "https://chat.deepseek.com/*",
+    "https://aistudio.google.com/*",
+    "https://huggingface.co/chat/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chat.mistral.ai/*",
+        "https://claude.ai/*",
+        "https://chat.deepseek.com/*",
+        "https://aistudio.google.com/*",
+        "https://huggingface.co/chat/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "48.png",
+      "128": "128.png"
+    }
+  },
+  "icons": {
+    "48": "48.png",
+    "128": "128.png"
+  }
+} 
