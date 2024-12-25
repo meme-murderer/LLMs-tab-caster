@@ -2,6 +2,22 @@
 
 A Chrome extension that allows you to send the same message to multiple AI chat services simultaneously. Perfect for comparing responses across different language models.
 
+
+<table>
+<tr>
+<td width="50%">
+
+![image](https://github.com/user-attachments/assets/7063458f-476c-400d-b118-bf4942b814c8)
+
+</td>
+<td width="50%">
+
+![WhatsApp Image 2024-12-25 at 22 51 57_ad58c55e](https://github.com/user-attachments/assets/426715a7-e3f3-4413-bd31-0e5e8761c771)
+
+</td>
+</tr>
+</table>
+
 ## Supported AI Chat Services
 
 - ChatGPT (OpenAI)
