@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Auto Type Hello</title>
+  <title>LLMs Tab Caster</title>
   <style>
     body {
       width: 300px;
@@ -61,36 +61,52 @@
   <textarea id="customText" placeholder="Enter your text here..." autofocus></textarea>
   <button id="start">Start Typing</button>
   <div class="status" id="status"></div>
+
   <div class="services">
-    <div class="service-item">
-      <input type="checkbox" id="claude" value="https://claude.ai/new" checked>
-      <label for="claude">Claude</label>
-    </div>
-    <div class="service-item">
-      <input type="checkbox" id="gemini" value="https://aistudio.google.com/prompts/new_chat" checked>
-      <label for="gemini">Gemini</label>
-    </div>
+    <!-- Top row: ChatGPT + Perplexity -->
     <div class="service-item">
       <input type="checkbox" id="chatgpt" value="https://chat.openai.com/" checked>
       <label for="chatgpt">ChatGPT</label>
     </div>
     <div class="service-item">
-      <input type="checkbox" id="mistral" value="https://chat.mistral.ai/chat" checked>
+      <input type="checkbox" id="perplexity" value="https://www.perplexity.ai/" checked>
+      <label for="perplexity">Perplexity</label>
+    </div>
+
+    <!-- Second row: Copilot + Claude -->
+    <div class="service-item">
+      <input type="checkbox" id="copilot" value="https://copilot.cloud.microsoft/" checked>
+      <label for="copilot">Copilot</label>
+    </div>
+    <div class="service-item">
+      <input type="checkbox" id="claude" value="https://claude.ai/new" checked>
+      <label for="claude">Claude</label>
+    </div>
+
+    <!-- Remaining services: Gemini, Mistral, Deepseek, QwQ, Llama, etc. -->
+    <div class="service-item">
+      <input type="checkbox" id="gemini" value="https://aistudio.google.com/prompts/new_chat" checked>
+      <label for="gemini">Gemini</label>
+    </div>
+    <div class="service-item">
+      <input type="checkbox" id="mistral" value="https://chat.mistral.ai/chat" >
       <label for="mistral">Mistral</label>
     </div>
     <div class="service-item">
-      <input type="checkbox" id="deepseek" value="https://chat.deepseek.com/" checked>
+      <input type="checkbox" id="deepseek" value="https://chat.deepseek.com/" >
       <label for="deepseek">Deepseek</label>
     </div>
     <div class="service-item">
-      <input type="checkbox" id="qwen" value="https://huggingface.co/chat/models/Qwen/QwQ-32B-Preview" checked>
+      <input type="checkbox" id="qwen" value="https://huggingface.co/chat/models/Qwen/QwQ-32B-Preview" >
       <label for="qwen">QwQ-32B</label>
     </div>
     <div class="service-item">
-      <input type="checkbox" id="llama" value="https://huggingface.co/chat/models/meta-llama/Llama-3.3-70B-Instruct" checked>
+      <input type="checkbox" id="llama" value="https://huggingface.co/chat/models/meta-llama/Llama-3.3-70B-Instruct" >
       <label for="llama">Llama3.3-70B</label>
     </div>
   </div>
+
+  <!-- Popup JS -->
   <script src="popup.js"></script>
 </body>
-</html> 
+</html>

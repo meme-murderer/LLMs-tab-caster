@@ -15,6 +15,7 @@ class ElementInteractor {
         'textarea[placeholder*="message"]'
       ],
       'claude.ai': [
+        // If contenteditable handling is unified, these are still valid fallbacks
         'div[contenteditable="true"][translate="no"]',
         'div[contenteditable="true"]'
       ],
@@ -37,11 +38,39 @@ class ElementInteractor {
         'textarea[placeholder="Ask anything"]',
         'textarea[enterkeyhint="enter"]',
         'textarea.scrollbar-custom'
+      ],
+      'www.perplexity.ai': [
+        'textarea[placeholder="Ask anything..."]',
+        'input[placeholder="Search or ask me anything..."]',
+        'textarea[placeholder="Search or ask me anything..."]',
+        'input#search-input',
+        'textarea'
+      ],
+      'copilot.cloud.microsoft': [
+        // contenteditable approach for Copilot
+        'span#m365-chat-editor-target-element[role="textbox"][contenteditable="true"]',
+        'span[role="textbox"][contenteditable="true"]',
+        'textarea[placeholder*="message"]',
+        'textarea[placeholder*="Ask"]',
+        'textarea'
+      ],
+      // ---- Added ChatGPT domain below ----
+      'chatgpt.com': [
+        // Target the exact contenteditable div
+        'div#prompt-textarea.ProseMirror[contenteditable="true"]',
+        // The <p> inside might also match if you want to be extra sure
+        'p[data-placeholder="Message ChatGPT"]'
       ]
     };
 
-    const defaultSelector = '.relative textarea, textarea[rows="1"], textarea[placeholder*="message"], textarea[placeholder*="Send"]';
-    
+    // A default selector to fall back on, if no site-specific selector is found
+    const defaultSelector =
+      '.relative textarea, ' +
+      'textarea[rows="1"], ' +
+      'textarea[placeholder*="message"], ' +
+      'textarea[placeholder*="Send"], ' +
+      'div[contenteditable="true"]';
+
     // Try platform-specific selectors first
     if (selectors[url]) {
       for (const selector of selectors[url]) {
@@ -49,29 +78,29 @@ class ElementInteractor {
         if (element) return element;
       }
     }
-    
+
     // Fall back to default selector
     return document.querySelector(defaultSelector);
   }
 
   async simulateTyping(element, text) {
     const url = window.location.hostname;
-    
     try {
-      if (url === 'claude.ai') {
-        // Special handling for contenteditable divs (Claude)
+      // Check if the element is contenteditable (e.g., Claude, Copilot, ChatGPT)
+      if (element.isContentEditable) {
+        // For contenteditable, use textContent + 'input' event
         element.textContent = text;
         element.dispatchEvent(new Event('input', { bubbles: true }));
         element.focus();
       } else {
-        // Standard input handling for textarea elements
+        // Standard input handling for textarea
         element.focus();
         element.value = text;
         element.dispatchEvent(new Event('input', { bubbles: true }));
         element.dispatchEvent(new Event('change', { bubbles: true }));
       }
-      
-      // Wait for the UI to update
+
+      // Wait briefly for the UI to update
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Special handling for Google AI Studio (Ctrl+Enter)
@@ -85,7 +114,7 @@ class ElementInteractor {
           bubbles: true
         }));
       } else {
-        // Regular Enter key for other platforms
+        // Regular Enter key for all other platforms
         element.dispatchEvent(new KeyboardEvent('keydown', {
           key: 'Enter',
           code: 'Enter',
@@ -139,7 +168,8 @@ class ElementInteractor {
       
       // Retry typing up to 3 times if it fails
       for (let i = 0; i < 3; i++) {
-        if (await this.simulateTyping(element, text)) {
+        const success = await this.simulateTyping(element, text);
+        if (success) {
           console.log('Successfully typed text');
           return;
         }
@@ -157,13 +187,11 @@ class ElementInteractor {
 
 // Initialize and listen for messages
 const interactor = new ElementInteractor();
-let hasProcessedMessage = false;
 
-// Listen for messages from background script
+// We removed hasProcessedMessage to allow multiple messages in one session
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === 'typeText' && message.text && !hasProcessedMessage) {
+  if (message.action === 'typeText' && message.text) {
     console.log('Received text to type:', message.text);
-    hasProcessedMessage = true;
     interactor.typeText(message.text);
   }
   return true;
@@ -172,4 +200,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Initial page load handler
 window.addEventListener('load', () => {
   console.log('Page loaded, ready to receive text...');
-}); 
+});
