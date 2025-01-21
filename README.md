@@ -22,11 +22,15 @@ A Chrome extension that allows you to send the same message to multiple AI chat 
 
 - ChatGPT (OpenAI)
 - Claude (Anthropic)
-- Gemini (Google AI Studio)
+- CoPilot
+- PerplexityAI
+- Gemini
+- Google AI Studio
 - Mistral AI
 - Deepseek Chat
 - QwQ-32B (Hugging Face)
 - Llama3.3 (Hugging Face)
+- CohereForAI (Hugging Face)
 
 ## Features
 
