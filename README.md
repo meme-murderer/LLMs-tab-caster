@@ -21,6 +21,8 @@ A Chrome extension that allows you to send the same message to multiple AI chat 
 ## Supported AI Chat Services
 
 - ChatGPT (OpenAI)
+- PerplexityAI
+- CoPilot (Microsoft)
 - Claude (Anthropic)
 - Gemini (Google AI Studio)
 - Mistral AI
