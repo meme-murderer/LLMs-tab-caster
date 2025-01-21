@@ -12,8 +12,11 @@
   "host_permissions": [
     "https://chatgpt.com/*", 
     "https://www.perplexity.ai/*",      
-    "https://copilot.cloud.microsoft/*", 
+    "https://copilot.cloud.microsoft/*",
+    "https://*.copilotstudio.microsoft.com/*",
+    "https://*.outlook.office.com/*",
     "https://aistudio.google.com/*",
+    "https://gemini.google.com/*",
     "https://claude.ai/*",
     "https://chat.deepseek.com/*",
     "https://huggingface.co/chat/*",
@@ -24,14 +27,19 @@
       "matches": [
         "https://chatgpt.com/*", 
         "https://www.perplexity.ai/*",       
-        "https://copilot.cloud.microsoft/*",  
+        "https://copilot.cloud.microsoft/*",
+        "https://*.cloud.microsoft/*",  
+        "https://*.copilotstudio.microsoft.com/*",
+        "https://*.outlook.office.com/*",
         "https://aistudio.google.com/*",
+        "https://gemini.google.com/*",
         "https://claude.ai/*",
         "https://chat.deepseek.com/*",
         "https://huggingface.co/chat/*",
         "https://chat.mistral.ai/*"
       ],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "all_frames": true
     }
   ],
   "background": {
